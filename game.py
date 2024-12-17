@@ -18,7 +18,7 @@ def main():
     #Main game loop
     while True:
         print("Current Location: The field")
-        direction = input("Which direction would you like to travel? (N, S, E, W)")
+        direction = input("Which direction would you like to travel? (N, S, E, W): ").strip().upper()
 
         if direction == 'N': #blacksmith
             blacksmith(player_stats)
