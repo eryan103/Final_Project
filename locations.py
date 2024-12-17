@@ -6,19 +6,25 @@ from stats import player_stats
 
 
 # these will be read by main file to say what's happening at what location
-
+def field():
+    print("You are in the field. Please choose a direction to travel (N, E, S, W):\n")
+    action = input("Direction:\n")
+    if action == blacksmith(player_stats):
+        print(f"{blacksmith}")
 
 def blacksmith(player_stats):  #blacksmith
-        print("You are at the Blacksmith.")
-        action = input("Choices: obtain a weapon (+3 skill), go back to the field, or go to the apothecary\n")
-        if action.lower() == "obtain a weapon":
-            player_stats["skill"] += 3
-            print("You obtained a weapon. Skill increased by 3.")
-        elif action.lower() == "go back to the field":
-            print("Going back to the field.")
-            #field()
-        elif action.lower() == "go to the apothecary":
-            apothecary()
+    print("You are at the Blacksmith.")
+    action = input("Choices: obtain a weapon (+3 skill), go back to the field, or go to the apothecary\n")
+    if action.lower() == "obtain a weapon":
+        player_stats["skill"] += 3
+        print("You obtained a weapon. Skill increased by 3.")
+    elif action.lower() == "go back to the field":
+        print("Going back to the field.")
+        return "field"
+    elif action.lower() == "go to the apothecary":
+        print("Going to the apothecary.")
+        return apothecary()
+    return blacksmith(player_stats)
 
 def apothecary():
     print("You are at the Apothecary.")
@@ -28,9 +34,11 @@ def apothecary():
         print("You obtained healing herbs. You can use them later.")
     elif action.lower() == "go back to the field":
         print("Going back to the field.")
-        #field()
+        return "field"
     elif action.lower() == "go to the trainer":
-        trainer()
+        print("Going to the trainer.")
+        return "trainer"
+    return "apothecary"
 
 def trainer():
     print("You are at the Trainer.")
@@ -40,9 +48,11 @@ def trainer():
         print("You received training. Skill increased by 5.")
     elif action.lower() == "go back to the field":
         print("going back to the field.")
-        #field()
+        return "field"
     elif action.lower() == "go to the inn":
-        inn()
+        print("Going to the inn.")
+        return "inn"
+    return "trainer"
 
 def inn():
     print("You are at the Inn.")
