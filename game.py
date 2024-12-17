@@ -6,12 +6,12 @@ Final Project
 '''
 # main game logic
 
-from locations import handle_location_event
+from locations import blacksmith, apothecary, trainer, priest
 from inventory import Inventory
 from stats import Stats
 
 def main(): #these are the player's beginning stats
-    player_stats = Stats(health = 10, stamina = 10, skill = 1)
+    player_stats = Stats()
     player_inventory = Inventory()
 
     print("Hello adventurer! It is time to embark on your journey.")
