@@ -1,19 +1,18 @@
 #defines locations and events
 
-from inventory import Inventory
-from stats import Stats
+from inventory import add_item, show_inventory
+from stats import player_stats
 
-inventory = Inventory()
-player_stats = Stats()
+
 
 # these will be read by main file to say what's happening at what location
 
 
-def blacksmith():  #blacksmith
+def blacksmith(player_stats):  #blacksmith
         print("You are at the Blacksmith.")
         action = input("Choices: obtain a weapon (+3 skill), go back to the field, or go to the apothecary\n")
         if action.lower() == "obtain a weapon":
-            player_stats.skill += 3
+            player_stats["skill"] += 3
             print("You obtained a weapon. Skill increased by 3.")
         elif action.lower() == "go back to the field":
             print("Going back to the field.")
@@ -25,7 +24,7 @@ def apothecary():
     print("You are at the Apothecary.")
     action = input("Choices: Obtain healing herbs (added to inventory, +3 health), go back to the field, or go to the trainer\n:")
     if action.lower() == "obtain healing herbs":
-        inventory.append("Healing Herbs (+3 health)")
+        add_item("Healing Herbs (+3 health)")
         print("You obtained healing herbs. You can use them later.")
     elif action.lower() == "go back to the field":
         print("Going back to the field.")
