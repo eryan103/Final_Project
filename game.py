@@ -23,10 +23,17 @@ def main(): #these are the player's beginning stats
         print("Current Location: The field")
         direction = input("Which direction would you like to travel? (N, S, E, W)")
 
-        if direction in ['N', 'S', 'E', 'W']:
-           player_stats, player_inventory = handle_location_event(direction, player_stats, player_inventory)  
+        if direction == 'N': #blacksmith
+            blacksmith()
+        elif direction == 'S': #apothecary
+            apothecary()
+        elif direction == 'E': #trainer
+            trainer()
+        elif direction == 'W': #priest
+            priest()
         else:
-             print("Invalid direction. Please choose N, S, E, or W.")
+            print("Invalid direction. Please choose N, S, E, or W.")
+        
 
     #in case player wants to check stats or inventory
         action = input("Type 'INV' to check inventory or 'STATS' to check stats: ")
