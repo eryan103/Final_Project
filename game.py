@@ -7,13 +7,10 @@ Final Project
 # main game logic
 
 from locations import blacksmith, apothecary, trainer, priest
-from inventory import Inventory
-from stats import Stats
+from inventory import add_item, show_inventory
+from stats import player_stats
 
-def main(): #these are the player's beginning stats
-    player_stats = Stats()
-    player_inventory = Inventory()
-
+def main():
     print("Hello adventurer! It is time to embark on your journey.")
     print("If you need to check your inventory, type: INV")
     print("If you need to check your stats, type: STATS")
