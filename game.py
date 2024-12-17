@@ -27,4 +27,15 @@ def main(): #these are the player's beginning stats
            player_stats, player_inventory = handle_location_event(direction, player_stats, player_inventory)  
         else:
              print("Invalid direction. Please choose N, S, E, or W.")
+
+    #in case player wants to check stats or inventory
+        action = input("Type 'INV' to check inventory or 'STATS' to check stats: ")
+
+        if action == 'INV':
+            print((f"Inventory: "))
+        elif action == 'STATS':
+            print(f"Health: {player_stats.health}/10, Stamina: {player_stats.stamina}/10, Skill: {player_stats.skill}/10")
+            break
+
+main()
     
