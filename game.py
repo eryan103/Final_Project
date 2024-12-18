@@ -47,10 +47,10 @@ def main():
                 current_location == apothecary(myInventory)
 
             elif action == 'E': #trainer
-                current_location = trainer()
+                current_location = trainer(player_stats)
 
             elif action == 'W': #priest
-                current_location = priest()
+                current_location = priest(player_stats, myInventory)
                 continue
 
         elif action == 'STATS':

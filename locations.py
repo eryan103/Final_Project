@@ -12,12 +12,16 @@ def field():
     action = input("Direction:\n")
     if action == "N":
         blacksmith(player_stats)
-    if action == "S":
+    elif action == "S":
         apothecary(myInventory)
-    if action == "E":
+    elif action == "E":
         trainer(player_stats)
-    if action == "W":
+    elif action == "W":
         priest(player_stats, myInventory)
+    elif action == "STATS":
+        print(player_stats)
+    elif action == "INV":
+        print(myInventory)
 
 
 def blacksmith(player_stats):  #blacksmith
@@ -64,7 +68,7 @@ def trainer(player_stats):
 
 def priest(player_stats, myInventory):
     print("You are at the Priest.")
-    action = input(f"Choices: Full health/stamina {BOLD} restore{RESET}, obtain {BOLD}potion{RESET}, go back to {BOLD}field{RESET}, go to {BOLD}mountain{RESET}")
+    action = input(f"Choices: Full health/stamina {BOLD} restore{RESET}, obtain {BOLD}potion{RESET}, go back to {BOLD}field{RESET}, go to {BOLD}mountain{RESET}\n")
     if action.lower() == "restore":
         player_stats['health'] = 10
         player_stats['stamina'] = 10
@@ -75,7 +79,7 @@ def priest(player_stats, myInventory):
         return field()
     elif action.lower() == "mountain":
         return mountain()
-    return priest()
+    return priest(player_stats, myInventory)
 
 
 def inn(player_stats, myInventory):
@@ -100,10 +104,10 @@ def inn(player_stats, myInventory):
     
 def mountain():
     print("You are on the Mountain.")
-    action = input("Choices: Proceed to Cave or Go back to Field:\n")
-    if action.lower() == "proceed to cave":
-        return cave()
-    elif action.lower() == "go back to field":
+    action = input(f"Choices: Proceed to {BOLD}cave{RESET} or go back to the {BOLD}field{RESET}:\n")
+    if action.lower() == "cave":
+        return cave(player_stats)
+    elif action.lower() == "field":
         return field()
     
 def cave(player_stats):
@@ -111,11 +115,18 @@ def cave(player_stats):
           "They are coming straight after you. It's time to fight!")
     if player_stats['skill'] >= 9:
         print("You won the game! Congratulations.")
+        player_stats['outcome'] == "Victory"
+        f = open("data.txt","a")
+        f.write(f"{player_stats['outcome']}")
+        exit(1)
     elif player_stats['skill'] == 8:
         print("You wake up in the field with your head pounding"
               "You wonder if it was all a dream.")
         return field()
     elif player_stats['skill'] < 7:
-        print("You lost!")  #figure out way to make them die and go back to field
-        #w/o their inventory items and go back to original stats
+        player_stats['outcome'] == "Lost"
+        f = open("data.txt","a")
+        f.write(f"{player_stats['outcome']}")
+        print("You lost!")
+        exit(1)
 
