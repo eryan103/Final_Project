@@ -1,0 +1,5 @@
+Name:emm
+Outcome:Lose
+Hp:10
+Stamina:10
+Skill:1

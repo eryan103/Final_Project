@@ -12,11 +12,11 @@ player_stats = {
 #save stats to a file
 def save_stats():
     f = open("data.txt", "w")
-    f.write(f"Name:{player_stats['name']}\n",)
-    f.write(f"Outcome:{player_stats['outcome']}\n")
-    f.write(f"Hp:{player_stats['health']}\n")
-    f.write(f"Stamina:{player_stats['stamina']}\n")
-    f.write(f"Skill:{player_stats['skill']}\n")
+    (f.write(f"Name:{player_stats['name']}\n",))
+    (f.write(f"Outcome:{player_stats['outcome']}\n"))
+    (f.write(f"Hp:{player_stats['health']}\n"))
+    (f.write(f"Stamina:{player_stats['stamina']}\n"))
+    (f.write(f"Skill:{player_stats['skill']}\n"))
     f.close()
 
 def show_stats():

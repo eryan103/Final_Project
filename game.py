@@ -37,7 +37,7 @@ def main():
         if world ['loc'] == "mountain":
             mountain(world)
         if world ['loc'] == "cave":
-            cave(player_stats, save_stats)
+            cave(player_stats, world, save_stats)
         
 
 main()

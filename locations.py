@@ -1,6 +1,5 @@
 #defines locations and events
 
-from inventory import add_item, myInventory, show_inventory
 from stats import player_stats, show_stats
 
 RESET = "\033[0;0m"
@@ -41,12 +40,12 @@ def blacksmith(player_stats, world):  #blacksmith
         return
     return
 
-def apothecary(myInventory, world):
+def apothecary(world):
     print("You are at the Apothecary.")
-    action = input(f"Choices: Obtain healing {BOLD}herbs{RESET} (added to inventory, +3 health), go back to the {BOLD}field{RESET}, or go to the {BOLD}trainer{RESET}\n:")
+    action = input(f"Choices: Practice making {BOLD}potions{RESET} (+2 skill), go back to the {BOLD}field{RESET}, or go to the {BOLD}trainer{RESET}\n:")
     if action.lower() == "herbs":
-        myInventory['items'] += "healing herbs +3 health" # try to make this an actual item
-        print("You obtained healing herbs. You can use them later.")
+        player_stats['skill'] += 2
+        print("You practiced making potions. Your skill level has grown.")
     elif action.lower() == "field":
         print("Going back to the field.")
         world['loc'] = "field"
@@ -59,10 +58,10 @@ def apothecary(myInventory, world):
 
 def trainer(player_stats, world):
     print("You are at the Trainer.")
-    action = input(f"Choices: Be {BOLD}train{RESET}ed (+5 skill), go back to the {BOLD}field{RESET}, or go to the {BOLD}inn{RESET}\n")
+    action = input(f"Choices: Be {BOLD}train{RESET}ed (+2 skill), go back to the {BOLD}field{RESET}, or go to the {BOLD}inn{RESET}\n")
     if action.lower() == "train":
-        player_stats['skill'] += 5
-        print("You received training. Skill increased by 5.")
+        player_stats['skill'] += 2
+        print("You received training. Skill increased by 2.")
     elif action.lower() == "field":
         world['loc'] = "field"
         return
@@ -72,15 +71,12 @@ def trainer(player_stats, world):
         return
     return
 
-def priest(player_stats, myInventory, world):
+def priest(player_stats, world):
     print("You are at the Priest.")
-    action = input(f"Choices: Full health/stamina {BOLD}restore{RESET}, obtain {BOLD}potion{RESET}, go back to {BOLD}field{RESET}, go to {BOLD}mountain{RESET}\n")
+    action = input(f"Choices: Full health/stamina {BOLD}restore{RESET}, go back to {BOLD}field{RESET}, or go to {BOLD}mountain{RESET}\n")
     if action.lower() == "restore":
         player_stats['health'] = 10
         player_stats['stamina'] = 10
-    elif action.lower() == "potion":
-        myInventory['items'] += "potion: +5 health and +5 stamina" #try to make an actual item
-        print("Potion added to inventory, properties are +5 health and +5 stamina")
     elif action.lower() == "field":
         world['loc'] = "field"
         return
@@ -122,20 +118,21 @@ def mountain(world):
         world['loc'] = "field"
         return
     
-def cave(player_stats, save_stats):
+def cave(player_stats, save_stats, world):
     print("You've come across an angry frost troll!"
           "They are coming straight after you. It's time to fight!")
     if player_stats['skill'] >= 9:
         print("You won the game! Congratulations.")
-        player_stats['outcome'] == "Victory"
+        player_stats['outcome'] = "Victory"
         save_stats()
         exit(1)
     elif player_stats['skill'] == 8:
         print("You wake up in the field with your head pounding"
               "You wonder if it was all a dream.")
+        world['loc'] = "field"
         return field()
     elif player_stats['skill'] < 7:
-        player_stats['outcome'] == "Lost"
+        player_stats['outcome'] = "Lose"
         save_stats()
         print("You lost!")
         exit(1)
