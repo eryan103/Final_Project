@@ -1,5 +1,5 @@
-Name:emm
+Name:emmmm
 Outcome:Lose
 Hp:10
 Stamina:10
-Skill:1
+Skill:3
