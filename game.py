@@ -17,7 +17,10 @@ from stats import player_stats, save_stats
 def main():
     print("Hello adventurer! It is time to embark on your journey.")
     userInput = input("Please enter your character's name:\n")
-    player_stats['name'] == userInput
+    f = open("field.txt","r")
+    print(f.read())
+    f.close()
+    player_stats['name'] = userInput
     world = {}
     world['loc'] = 'field'
     while True:
@@ -34,10 +37,8 @@ def main():
         if world ['loc'] == "mountain":
             mountain(world)
         if world ['loc'] == "cave":
-            cave(player_stats, world)
+            cave(player_stats, save_stats)
         
-
-    
 
 main()
     

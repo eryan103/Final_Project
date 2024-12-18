@@ -1,0 +1,4 @@
+You awake in a field covered in sunlight. You can't remember how you got here, but you know you need to find your way back home.
+All you currently have is the clothes on your back. It may be a good idea to stock up on healing items as well as learn some
+skills. You never know what you may encounter during your travels!
+While in the field, you can access your inventory by typing INV and your stats by typing STATS. 
