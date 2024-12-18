@@ -8,12 +8,17 @@ BOLD    = "\033[;1m"
 
 # these will be read by main file to say what's happening at what location
 def field():
-    print("You are in the field. Please choose a direction to travel (N, E, S, W):\n")
+    print("You are in the field. Please choose a direction to travel (N, E, S, W):")
     action = input("Direction:\n")
-    if action == blacksmith(player_stats):
-        print(f"{blacksmith}")
-    if action == apothecary(myInventory):
-        print(f"{apothecary}")
+    if action == "N":
+        blacksmith(player_stats)
+    if action == "S":
+        apothecary(myInventory)
+    if action == "E":
+        trainer(player_stats)
+    if action == "W":
+        priest(player_stats, myInventory)
+
 
 def blacksmith(player_stats):  #blacksmith
     print("You are at the Blacksmith.")
@@ -33,14 +38,14 @@ def apothecary(myInventory):
     print("You are at the Apothecary.")
     action = input(f"Choices: Obtain healing {BOLD}herbs{RESET} (added to inventory, +3 health), go back to the {BOLD}field{RESET}, or go to the {BOLD}trainer{RESET}\n:")
     if action.lower() == "herbs":
-        myInventory.append("Healing Herbs (+3 health)")
+        myInventory['items'] += "healing herbs +3 health"
         print("You obtained healing herbs. You can use them later.")
     elif action.lower() == "field":
         print("Going back to the field.")
         return field()
     elif action.lower() == "trainer":
         print("Going to the trainer.")
-        return trainer()
+        return trainer(player_stats)
     return apothecary(myInventory)
 
 def trainer(player_stats):
@@ -64,7 +69,8 @@ def priest(player_stats, myInventory):
         player_stats['health'] = 10
         player_stats['stamina'] = 10
     elif action.lower() == "potion":
-        add_item("Potion added to inventory, properties are +5 health and +5 stamina")
+        myInventory['items'] += "potion: +5 health and +5 stamina"
+        print("Potion added to inventory, properties are +5 health and +5 stamina")
     elif action.lower() == "field":
         return field()
     elif action.lower() == "mountain":

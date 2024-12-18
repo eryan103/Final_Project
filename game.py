@@ -41,10 +41,10 @@ def main():
         if action == 'N' or action == 'E' or action == 'S' or action == 'W':
 
             if action == 'N':
-                current_location = blacksmith(player_stats)
+                current_location == blacksmith(player_stats)
 
             elif action == 'S': #apothecary
-                current_location = apothecary(myInventory)
+                current_location == apothecary(myInventory)
 
             elif action == 'E': #trainer
                 current_location = trainer()
