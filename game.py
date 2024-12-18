@@ -56,7 +56,7 @@ def main():
         elif action == 'STATS':
             show_stats()
         elif action == 'INV':
-            print(f"Inventory: {show_inventory()}")
+            print(f"Inventory: {myInventory}")
         elif action == 'Q':
             print("Thanks for playing!")
             save_stats()
