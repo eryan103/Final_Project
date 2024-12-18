@@ -1,9 +1,10 @@
 #defines locations and events
 
-from inventory import add_item, show_inventory
+from inventory import add_item, myInventory, show_inventory
 from stats import player_stats
 
-
+RESET = "\033[0;0m"
+BOLD    = "\033[;1m"
 
 # these will be read by main file to say what's happening at what location
 def field():
@@ -11,52 +12,54 @@ def field():
     action = input("Direction:\n")
     if action == blacksmith(player_stats):
         print(f"{blacksmith}")
+    if action == apothecary(myInventory):
+        print(f"{apothecary}")
 
 def blacksmith(player_stats):  #blacksmith
     print("You are at the Blacksmith.")
-    action = input("Choices: obtain a weapon (+3 skill), go back to the field, or go to the apothecary\n")
-    if action.lower() == "obtain a weapon":
+    action = input(f"Choices: obtain a {BOLD}weapon{RESET} (+3 skill), go back to the {BOLD}field{RESET}, or go to the {BOLD}apothecary{RESET}\n")
+    if action.lower() == "weapon":
         player_stats["skill"] += 3
         print("You obtained a weapon. Skill increased by 3.")
-    elif action.lower() == "go back to the field":
+    elif action.lower() == "field":
         print("Going back to the field.")
         return field()
-    elif action.lower() == "go to the apothecary":
+    elif action.lower() == "apothecary":
         print("Going to the apothecary.")
-        return apothecary()
+        return apothecary(myInventory)
     return blacksmith(player_stats)
 
-def apothecary():
+def apothecary(myInventory):
     print("You are at the Apothecary.")
-    action = input(f"Choices: Obtain healing {BOLD}herbs{RESET} (added to inventory, +3 health), go back to the field, or go to the trainer\n:")
+    action = input(f"Choices: Obtain healing {BOLD}herbs{RESET} (added to inventory, +3 health), go back to the {BOLD}field{RESET}, or go to the {BOLD}trainer{RESET}\n:")
     if action.lower() == "herbs":
-        add_item("Healing Herbs (+3 health)")
+        myInventory.append("Healing Herbs (+3 health)")
         print("You obtained healing herbs. You can use them later.")
-    elif action.lower() == "go back to the field":
+    elif action.lower() == "field":
         print("Going back to the field.")
         return field()
-    elif action.lower() == "go to the trainer":
+    elif action.lower() == "trainer":
         print("Going to the trainer.")
         return trainer()
-    return apothecary()
+    return apothecary(myInventory)
 
-def trainer():
+def trainer(player_stats):
     print("You are at the Trainer.")
-    action = input(f"Choices: Be {BOLD}train{RESET}ed (+5 skill), go back to the field, or go to the inn\n")
+    action = input(f"Choices: Be {BOLD}train{RESET}ed (+5 skill), go back to the {BOLD}field{RESET}, or go to the {BOLD}inn{RESET}\n")
     if action.lower() == "train":
         player_stats['skill'] += 5
         print("You received training. Skill increased by 5.")
-    elif action.lower() == "go back to the field":
-        print("going back to the field.")
+    elif action.lower() == "field":
+        print("field.")
         return "field"
-    elif action.lower() == "go to the inn":
+    elif action.lower() == "inn":
         print("Going to the inn.")
-        return inn()
-    return trainer()
+        return inn(player_stats, myInventory)
+    return trainer(player_stats)
 
-def priest():
+def priest(player_stats, myInventory):
     print("You are at the Priest.")
-    action = input(f"Choices: Full health/stamina {BOLD} restore, {RESET} obtain potion, go back to field, go to mountain")
+    action = input(f"Choices: Full health/stamina {BOLD} restore{RESET}, obtain {BOLD}potion{RESET}, go back to {BOLD}field{RESET}, go to {BOLD}mountain{RESET}")
     if action.lower() == "restore":
         player_stats['health'] = 10
         player_stats['stamina'] = 10
@@ -69,25 +72,25 @@ def priest():
     return priest()
 
 
-def inn():
+def inn(player_stats, myInventory):
     print("You are at the Inn.")
-    action = input("Choices: Sleep (full health/stamina restore, +1 skill), drinking competition (-5 health, -5 stamina, +2 skill), go back to the field, or go to the mountain:\n")
+    action = input(f"Choices: {BOLD}Sleep{RESET} (full health/stamina restore, +1 skill), {BOLD}drink{RESET}ing competition (-5 health, -5 stamina, +2 skill), go back to the {BOLD}field{RESET}, or go to the {BOLD}mountain{RESET}:\n")
     if action.lower() == "sleep":
         player_stats['health'] = 10
         player_stats['stamina'] = 10
         player_stats['skill'] += 1
         print("You rested at the Inn. Health and Stamina restored, +1 skill.")
-    elif action.lower() == "drinking competition":
+    elif action.lower() == "drink":
         player_stats['health'] -= 5
         player_stats['stamina'] -= 5
         player_stats['skill'] += 2
         print("You participated in the drinking competition. -5 health, -5 stamina, +2 skill.")
-    elif action.lower() == "go back to the field":
+    elif action.lower() == "field":
         print("Going back to the field.")
         return field()
-    elif action.lower() == "go to the mountain":
+    elif action.lower() == "mountain":
         return mountain()
-    return inn()
+    return inn(player_stats, myInventory)
     
 def mountain():
     print("You are on the Mountain.")
@@ -97,7 +100,7 @@ def mountain():
     elif action.lower() == "go back to field":
         return field()
     
-def cave():
+def cave(player_stats):
     print("You've come across an angry frost troll!"
           "They are coming straight after you. It's time to fight!")
     if player_stats['skill'] >= 9:
@@ -110,5 +113,3 @@ def cave():
         print("You lost!")  #figure out way to make them die and go back to field
         #w/o their inventory items and go back to original stats
 
-RESET = "\033[0;0m"
-BOLD    = "\033[;1m"

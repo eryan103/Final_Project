@@ -7,8 +7,8 @@ Final Project
 # main game logic
 
 from locations import blacksmith, apothecary, trainer, field, priest, mountain, cave
-from inventory import myInventory, load_inventory, save_inventory, show_inventory
-from stats import player_stats, load_stats, save_stats, show_stats
+from inventory import myInventory, save_inventory
+from stats import player_stats, save_stats
 
 # def game():
 #     #load player stats and inventory from files
@@ -27,7 +27,7 @@ from stats import player_stats, load_stats, save_stats, show_stats
 #             print("Invalid direction. Please choose N, S, E, or W.")
 #             continue
 #         if (userInput == "N"):
-#             print({blacksmith})
+#             print(f{blacksmith})
    
    
  
@@ -44,7 +44,7 @@ def main():
                 current_location = blacksmith(player_stats)
 
             elif action == 'S': #apothecary
-                current_location = apothecary()
+                current_location = apothecary(myInventory)
 
             elif action == 'E': #trainer
                 current_location = trainer()
@@ -54,9 +54,11 @@ def main():
                 continue
 
         elif action == 'STATS':
-            show_stats()
+            for STATS in player_stats['Stats']:
+                print(f"Stats: - {STATS}")
         elif action == 'INV':
-            print(f"Inventory: {myInventory}")
+            for INV in myInventory['items']:
+                print(f"Inventory: - {INV}")
         elif action == 'Q':
             print("Thanks for playing!")
             save_stats()

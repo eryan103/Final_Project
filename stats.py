@@ -1,6 +1,7 @@
 # keeps track of player stats
 
 player_stats = {
+    "Stats"
     'health': 10,
     'stamina': 10,
     'skill': 1
