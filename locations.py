@@ -20,7 +20,7 @@ def blacksmith(player_stats):  #blacksmith
         print("You obtained a weapon. Skill increased by 3.")
     elif action.lower() == "go back to the field":
         print("Going back to the field.")
-        return "field"
+        return field()
     elif action.lower() == "go to the apothecary":
         print("Going to the apothecary.")
         return apothecary()
@@ -34,15 +34,15 @@ def apothecary():
         print("You obtained healing herbs. You can use them later.")
     elif action.lower() == "go back to the field":
         print("Going back to the field.")
-        return "field"
+        return field()
     elif action.lower() == "go to the trainer":
         print("Going to the trainer.")
-        return "trainer"
-    return "apothecary"
+        return trainer()
+    return apothecary()
 
 def trainer():
     print("You are at the Trainer.")
-    action = input("Chioces: Be trained (+5 skill), go back to the field, or go to the inn\n")
+    action = input("Choices: Be trained (+5 skill), go back to the field, or go to the inn\n")
     if action.lower() == "be trained":
         player_stats['skill'] += 5
         print("You received training. Skill increased by 5.")
@@ -51,12 +51,27 @@ def trainer():
         return "field"
     elif action.lower() == "go to the inn":
         print("Going to the inn.")
-        return "inn"
-    return "trainer"
+        return inn()
+    return trainer()
+
+def priest():
+    print("You are at the Priest.")
+    action = input("Choices: Full health/stamina restore, obtain potion, go back to field, go to mountain")
+    if action.lower() == "restore":
+        player_stats['health'] = 10
+        player_stats['stamina'] = 10
+    elif action.lower() == "potion":
+        add_item("Potion added to inventory, properties are +5 health and +5 stamina")
+    elif action.lower() == "field":
+        return field()
+    elif action.lower() == "mountain":
+        return mountain()
+    return priest()
+
 
 def inn():
     print("You are at the Inn.")
-    action = input("Choices: Sleep (full health/stamina restore, +1 skill), drinking competition (-5 health, -5 stamina, +2 skill), go back to the field, or go to the mountain")
+    action = input("Choices: Sleep (full health/stamina restore, +1 skill), drinking competition (-5 health, -5 stamina, +2 skill), go back to the field, or go to the mountain:\n")
     if action.lower() == "sleep":
         player_stats['health'] = 10
         player_stats['stamina'] = 10
@@ -69,6 +84,28 @@ def inn():
         print("You participated in the drinking competition. -5 health, -5 stamina, +2 skill.")
     elif action.lower() == "go back to the field":
         print("Going back to the field.")
-        #field()
-    #elif action.lower() == "go to the mountain":
-        #mountain()
+        return field()
+    elif action.lower() == "go to the mountain":
+        return mountain()
+    return inn()
+    
+def mountain():
+    print("You are the Mountain.")
+    action = input("Choices: Proceed to Cave or Go back to Field:\n")
+    if action.lower() == "proceed to cave":
+        return cave()
+    elif action.lower() == "go back to field":
+        return field()
+    
+def cave():
+    print("You've come across an angry frost troll!"
+          "They are coming straight after you. It's time to fight!")
+    if player_stats['skill'] >= 9:
+        print("You won the game! Congratulations.")
+    elif player_stats['skill'] == 8:
+        print("You wake up in the field with your head pounding"
+              "You wonder if it was all a dream.")
+        return field()
+    elif player_stats['skill'] < 7:
+        print("You lost!")  #figure out way to make them die and go back to field
+        #w/o their inventory items and go back to original stats
