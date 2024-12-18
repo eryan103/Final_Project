@@ -28,8 +28,8 @@ def blacksmith(player_stats):  #blacksmith
 
 def apothecary():
     print("You are at the Apothecary.")
-    action = input("Choices: Obtain healing herbs (added to inventory, +3 health), go back to the field, or go to the trainer\n:")
-    if action.lower() == "obtain healing herbs":
+    action = input(f"Choices: Obtain healing {BOLD}herbs{RESET} (added to inventory, +3 health), go back to the field, or go to the trainer\n:")
+    if action.lower() == "herbs":
         add_item("Healing Herbs (+3 health)")
         print("You obtained healing herbs. You can use them later.")
     elif action.lower() == "go back to the field":
@@ -42,8 +42,8 @@ def apothecary():
 
 def trainer():
     print("You are at the Trainer.")
-    action = input("Choices: Be trained (+5 skill), go back to the field, or go to the inn\n")
-    if action.lower() == "be trained":
+    action = input(f"Choices: Be {BOLD}train{RESET}ed (+5 skill), go back to the field, or go to the inn\n")
+    if action.lower() == "train":
         player_stats['skill'] += 5
         print("You received training. Skill increased by 5.")
     elif action.lower() == "go back to the field":
@@ -56,7 +56,7 @@ def trainer():
 
 def priest():
     print("You are at the Priest.")
-    action = input("Choices: Full health/stamina restore, obtain potion, go back to field, go to mountain")
+    action = input(f"Choices: Full health/stamina {BOLD} restore, {RESET} obtain potion, go back to field, go to mountain")
     if action.lower() == "restore":
         player_stats['health'] = 10
         player_stats['stamina'] = 10
@@ -90,7 +90,7 @@ def inn():
     return inn()
     
 def mountain():
-    print("You are the Mountain.")
+    print("You are on the Mountain.")
     action = input("Choices: Proceed to Cave or Go back to Field:\n")
     if action.lower() == "proceed to cave":
         return cave()
@@ -109,3 +109,6 @@ def cave():
     elif player_stats['skill'] < 7:
         print("You lost!")  #figure out way to make them die and go back to field
         #w/o their inventory items and go back to original stats
+
+RESET = "\033[0;0m"
+BOLD    = "\033[;1m"
